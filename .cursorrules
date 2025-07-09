@@ -1,0 +1,3 @@
+- Always give only one command or step at a time.
+- After providing a command, wait for user confirmation before proceeding.
+- Do not output multiple steps in a single response.
