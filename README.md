@@ -3,7 +3,7 @@
 A real-time weather data processing demo built with **Elixir**, **Phoenix**, and **Broadway**. This project demonstrates:
 
 - **Real-time data processing** with Broadway pipelines
-- **Live weather data** from NOAA Weather.gov API
+- **Live weather data** from NOAA Weather.gov API (NOTE .. we pull data every 10 seconds.. but it is only updated every ~ 5 mins)
 - **Interactive station selection** with multiple weather stations
 - **Real-time UI updates** using Phoenix LiveView
 - **Broadway dashboard** for pipeline monitoring
