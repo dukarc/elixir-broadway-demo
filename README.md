@@ -8,6 +8,12 @@ A real-time weather data processing demo built with **Elixir**, **Phoenix**, and
 - **Real-time UI updates** using Phoenix LiveView
 - **Broadway dashboard** for pipeline monitoring
 
+
+
+https://github.com/user-attachments/assets/7322031f-28a0-42e3-9d05-9f431b83b22f
+
+
+
 ## Quick Start
 
 ### 1. Install asdf (if not already installed)
