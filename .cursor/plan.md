@@ -59,19 +59,26 @@ Demonstrate the capabilities of **Elixir**, **Phoenix**, and **Broadway** using 
 
 ## Weather Data Integration Options
 
-### Option 1: OpenWeatherMap API
+### Option 1: NOAA Weather.gov Current Conditions API
+
+- **Pros**: Free, reliable, official NOAA data, no rate limits
+- **Cons**: Updates every 5-15 minutes (not real-time)
+- **Update Frequency**: 5-15 minute intervals
+- **Data Format**: JSON with NOAA-specific field names
+
+### Option 2: OpenWeatherMap API
 
 - **Pros**: Free tier available, comprehensive data, reliable
 - **Cons**: Rate limits on free tier
 - **Update Frequency**: Can be configured for ~10-second intervals
 
-### Option 2: WeatherAPI.com
+### Option 3: WeatherAPI.com
 
 - **Pros**: Good free tier, detailed weather data
 - **Cons**: Rate limits
 - **Update Frequency**: Configurable intervals
 
-### Option 3: Simulated Weather Data (Fallback)
+### Option 4: Simulated Weather Data (Fallback)
 
 - **Pros**: No rate limits, predictable data
 - **Cons**: Not real data
@@ -86,7 +93,7 @@ Demonstrate the capabilities of **Elixir**, **Phoenix**, and **Broadway** using 
 - Configure **Phoenix.PubSub** as the event distribution mechanism.
 - Choose and configure weather data source.
 
-### 2. Implement Custom GenStage Producer
+### 2. Implement Custom GenStage Producer - COMPLETED
 
 - Create `WeatherProducer` module implementing GenStage behavior.
 - Implement weather data fetching logic with HTTP client.
@@ -94,14 +101,14 @@ Demonstrate the capabilities of **Elixir**, **Phoenix**, and **Broadway** using 
 - Configure producer to emit events every ~10 seconds.
 - Integrate Telemetry for producer metrics.
 
-### 3. Implement Broadway Pipeline
+### 3. Implement Broadway Pipeline - COMPLETED
 
 - Create Broadway module using the custom `WeatherProducer`.
 - Processors handle weather data transformation and validation.
 - Optional batchers for batch processing of weather updates.
 - Integrate Telemetry for metrics and observability.
 
-### 4. Phoenix LiveView Frontend
+### 4. Phoenix LiveView Frontend - COMPLETED
 
 - Create real-time HTML interface using Phoenix LiveView.
 - Display live weather data that updates automatically with each new data point.
@@ -109,7 +116,7 @@ Demonstrate the capabilities of **Elixir**, **Phoenix**, and **Broadway** using 
 - Show pipeline status and error states in real-time.
 - Add historical weather data display (last 10-20 updates).
 
-### 5. Demo Scenarios
+### 5. Demo Scenarios - COMPLETED
 
 - Real-time weather data ingestion every ~10 seconds via custom producer.
 - Live HTML frontend updates automatically showing new weather data.
@@ -117,15 +124,53 @@ Demonstrate the capabilities of **Elixir**, **Phoenix**, and **Broadway** using 
 - Show real-time UI updates as weather data flows through the pipeline.
 - Weather data visualization with smooth transitions and loading states.
 
-### 6. Documentation & Testing
+### 6. Documentation & Testing - COMPLETED
 
 - Document architecture, pipeline design, and key decisions in `cursor.md`.
 - Add unit/integration tests for Broadway and Phoenix components.
 - Provide example usage and instructions for running the demo.
+
+### 7. NOAA Weather.gov Integration - IN PROGRESS
+
+**Objective**: Replace simulated weather data with real NOAA Weather.gov Current Conditions API data.
+
+**Key Components**:
+
+- **NOAA API Client**: HTTP client to fetch current conditions from Weather.gov
+- **Data Transformation**: Convert NOAA API response to our existing weather data format
+- **Rate Limiting**: Respect NOAA's API limits (likely 5-15 minute intervals)
+- **Error Handling**: Graceful fallback to simulated data if API is unavailable
+- **Configuration**: Make location configurable (lat/lon or station ID)
+
+**Technical Considerations**:
+
+- **Update Frequency**: NOAA updates every 5-15 minutes (not 10 seconds like our current demo)
+- **Data Format**: NOAA returns JSON with different field names than our simulated data
+- **Location**: Need to choose a specific weather station or coordinates
+- **Fallback Strategy**: Keep simulated data as backup for demo reliability
+
+**Implementation Steps**:
+
+1. Create NOAA API client module
+2. Explore and test NOAA API endpoints
+3. Design data transformation layer
+4. Update WeatherProducer to use NOAA data
+5. Implement fallback to simulated data
+6. Add configuration for location selection
+7. Test with real NOAA data
+8. Update UI to show data source (real vs simulated)
+
+**Questions to Resolve**:
+
+- **Location**: What location should we use for weather data? (e.g., San Francisco, New York, or configurable?)
+- **Update Frequency**: Should we keep 10-second intervals with simulated data as fallback, or switch to 5-15 minute intervals?
+- **Data Mapping**: How should we map NOAA's fields to our existing format?
+- **Error Handling**: What should happen when NOAA API is down?
 
 ## Deliverables
 
 - **Source code**: Idiomatic, well-structured Elixir and Phoenix codebase.
 - **Custom GenStage Producer**: Robust weather data ingestion component.
 - **Real-time HTML Frontend**: Live weather data display with automatic updates.
+- **NOAA Integration**: Real weather data from NOAA Weather.gov API.
 - **cursor.md**: This project plan, architecture documentation.

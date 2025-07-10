@@ -1,11 +1,64 @@
-<div>
-  <h2>Last 10 Weather Updates</h2>
-  <ul>
-    <%= for event <- @history do %>
-      <li>
-        <%= event.timestamp %> — <%= event.condition %>, <%= event.temperature %>°C,
-        <%= event.humidity %>% humidity, <%= event.pressure %> hPa, <%= event.wind_speed %> m/s
-      </li>
-    <% end %>
-  </ul>
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Weather Data Dashboard</h2>
+  
+  <!-- Station Selector -->
+  <div class="mb-6">
+    <form phx-change="select_station">
+      <label class="label">
+        <span class="label-text">Select Weather Station</span>
+      </label>
+      <select 
+        class="select select-bordered w-full max-w-xs"
+        name="station_id"
+      >
+        <%= for station <- @stations do %>
+          <option 
+            value={station.id}
+            selected={station.id == @selected_station.id}
+          >
+            <%= station.name %>
+          </option>
+        <% end %>
+      </select>
+    </form>
+  </div>
+
+  <!-- Current Station Info -->
+  <div class="mb-6 p-4 bg-base-200 rounded-lg">
+    <h3 class="text-lg font-semibold mb-2">Current Station</h3>
+    <p><strong>Name:</strong> <%= @selected_station.name %></p>
+    <p><strong>ID:</strong> <%= @selected_station.id %></p>
+    <p><strong>Timezone:</strong> <%= @selected_station.timezone %></p>
+  </div>
+
+  <!-- Weather History -->
+  <div>
+    <h3 class="text-lg font-semibold mb-4">Last 10 Weather Updates (updated every 10 seconds)</h3>
+    <div class="space-y-2">
+      <%= for event <- @history do %>
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <span class="font-mono text-sm">
+                  <%= Calendar.strftime(event.timestamp, "%H:%M:%S") %>
+                </span>
+              </div>
+              <div class="flex gap-4">
+                <span class="badge badge-primary">
+                  <%= event.temperature %>°C
+                </span>
+                <span class="badge badge-secondary">
+                  <%= event.humidity %>%
+                </span>
+                <span class="badge badge-accent">
+                  <%= event.wind_speed %> m/s
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

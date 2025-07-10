@@ -37,7 +37,7 @@ defmodule WeatherBroadwayDemo.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 1.0"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.8.3"},
+      {:phoenix_live_dashboard, "~> 0.8.7"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.0", runtime: Mix.env() == :dev},
       {:heroicons,
@@ -53,7 +53,8 @@ defmodule WeatherBroadwayDemo.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:broadway, "~> 1.0"},
+      {:broadway, "~> 1.2.1"},
+      {:broadway_dashboard, "~> 0.4.1"},
       {:httpoison, "~> 2.0"}
     ]
   end

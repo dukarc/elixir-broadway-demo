@@ -35,10 +35,16 @@ defmodule WeatherBroadwayDemoWeb.Router do
     # as long as you are also using SSL (which you should anyway).
     import Phoenix.LiveDashboard.Router
 
-    scope "/dev" do
-      pipe_through :browser
+    if Mix.env() in [:dev, :test] do
+      scope "/" do
+        pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: WeatherBroadwayDemoWeb.Telemetry
+        live_dashboard "/dashboard",
+          metrics: WeatherBroadwayDemoWeb.Telemetry,
+          additional_pages: [
+            broadway: {BroadwayDashboard, pipelines: [WeatherBroadwayDemo.WeatherBroadway]}
+          ]
+      end
     end
   end
 end

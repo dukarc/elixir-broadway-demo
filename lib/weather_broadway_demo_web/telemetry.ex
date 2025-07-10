@@ -56,7 +56,42 @@ defmodule WeatherBroadwayDemoWeb.Telemetry do
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
-      summary("vm.total_run_queue_lengths.io")
+      summary("vm.total_run_queue_lengths.io"),
+
+      # Broadway Producer metrics
+      summary("broadway.producer.produced_messages.count",
+        tags: [:broadway]
+      ),
+      summary("broadway.producer.demand",
+        tags: [:broadway]
+      ),
+      summary("broadway.producer.consumed_messages.count",
+        tags: [:broadway]
+      ),
+
+      # Broadway Processor metrics
+      summary("broadway.processor.message.stop.duration",
+        unit: {:native, :millisecond},
+        tags: [:broadway, :processor]
+      ),
+      summary("broadway.processor.messages.count",
+        tags: [:broadway, :processor]
+      ),
+      summary("broadway.processor.messages.failed.count",
+        tags: [:broadway, :processor]
+      ),
+
+      # Broadway Batchers (if you use them)
+      summary("broadway.batcher.message.stop.duration",
+        unit: {:native, :millisecond},
+        tags: [:broadway, :batcher]
+      ),
+      summary("broadway.batcher.messages.count",
+        tags: [:broadway, :batcher]
+      ),
+      summary("broadway.batcher.messages.failed.count",
+        tags: [:broadway, :batcher]
+      )
     ]
   end
 
