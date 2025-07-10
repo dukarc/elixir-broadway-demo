@@ -1,0 +1,11 @@
+<div>
+  <h2>Last 10 Weather Updates</h2>
+  <ul>
+    <%= for event <- @history do %>
+      <li>
+        <%= event.timestamp %> — <%= event.condition %>, <%= event.temperature %>°C,
+        <%= event.humidity %>% humidity, <%= event.pressure %> hPa, <%= event.wind_speed %> m/s
+      </li>
+    <% end %>
+  </ul>
+</div>

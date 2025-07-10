@@ -9,8 +9,10 @@ defmodule WeatherBroadwayDemo.Application do
   def start(_type, _args) do
     children = [
       WeatherBroadwayDemoWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:weather_broadway_demo, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:weather_broadway_demo, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: WeatherBroadwayDemo.PubSub},
+      WeatherBroadwayDemo.WeatherBroadway,
       # Start a worker by calling: WeatherBroadwayDemo.Worker.start_link(arg)
       # {WeatherBroadwayDemo.Worker, arg},
       # Start to serve requests, typically the last entry
